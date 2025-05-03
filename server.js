@@ -19,7 +19,7 @@ if(process.env.NODE_ENV == "development"){
     console.log(`mode: ${process.env.NODE_ENV}`)
 };
 
-
+//ser
 //mount routes
 app.use('/api/v1/Categories', categoryRoutes);
 
