@@ -15,11 +15,12 @@ const categoryschema = new mongoose.Schema({
     type:String,
     lowercase:true,
   },
+  image:String,
 },
 {timestamps:true}
 );
 
-const Categorymodel = mongoose.model('Categories', categoryschema);
+const categoryModel = mongoose.model('Categories', categoryschema);
 
-module.exports = Categorymodel;
+module.exports = categoryModel;
 //ser
