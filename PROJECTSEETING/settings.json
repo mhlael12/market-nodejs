@@ -1,0 +1,23 @@
+{
+    // تفعيل الإصلاح التلقائي من ESLint عند الحفظ
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+  
+    // تحديد الملفات التي سيتحقق منها ESLint
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "json"
+    ],
+  
+    // إظهار حالة ESLint في الشريط السفلي
+    "eslint.alwaysShowStatus": true,
+  
+    // استخدام ESLint كمُنسق (format)
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  
+    // تفعيل تنسيق الكود عند الحفظ
+    "editor.formatOnSave": true
+  }
+  
