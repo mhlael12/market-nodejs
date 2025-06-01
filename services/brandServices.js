@@ -1,15 +1,15 @@
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
-const category = require("../models/categoryModel");
+const brand = require("../models/brandModel");
 const ApiError = require("../utils/apiError");
 
 
 // إنشاء تصنيف جديد
 
-exports.creatCategory = asyncHandler(async (req, res) => {
+exports.creatbrand = asyncHandler(async (req, res) => {
   const { name } = req.body;
-  const newcategory = await category.create({ name, slug: slugify(name) });
-  res.status(201).json({ data: newcategory });
+  const newbrand = await brand.create({ name, slug: slugify(name) });
+  res.status(201).json({ data: newbrand });
   //     console.log(req.body.name);
   // //ser
 
@@ -22,56 +22,56 @@ exports.creatCategory = asyncHandler(async (req, res) => {
 
 // جلب جميع التصنيفات مع التصفية والتقسيم إلى صفحات
 
-exports.getCategory = asyncHandler(async (req, res, next) => {
+exports.getbrands = asyncHandler(async (req, res, next) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 5;
   const skip = (page - 1) * limit; // (2-1)*5= 5 skip 5 to page 2
-  const categories = await category.find({}).skip(skip).limit(limit);
+  const brands = await brand.find({}).skip(skip).limit(limit);
   // .then((categories) => res.json(categories))
   // .catch((err)=>{  })
 
-  res.status(200).json({ results: categories.length, page, data: categories });
+  res.status(200).json({ results: brands.length, page, data: brands });
 });
 
 // جلب تصنيف واحد حسب الـ ID
 
-exports.getCategories = asyncHandler(async (req, res, next) => {
+exports.getbrand = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const findcategory = await category.findById(id);
-  if (!findcategory) {
+  const findbrand = await brand.findById(id);
+  if (!findbrand) {
     // res.status(404).json({msg:`no category for this id ${id} `});
-    return next(new ApiError(`no category for this id ${id}`, 404));
+    return next(new ApiError(`no brand for this id ${id}`, 404));
   }
-  res.status(200).json({ data: findcategory });
+  res.status(200).json({ data: findbrand });
 });
 
 // update -- put /api/v1/categories/:id
 // تحديث تصنيف موجود
 
-exports.updateCategory = asyncHandler(async (req, res, next) => {
+exports.updatebrand = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
 
-  const updatecategory = await category.findOneAndUpdate(
+  const updatebrand = await brand.findOneAndUpdate(
     { _id: id },
     { name, slug: slugify(name) },
     { new: true },
   );
-  if (!updatecategory) {
+  if (!updatebrand) {
     // res.status(404).json({msg:`no category for this id ${id} `});
-    return next(new ApiError(`no category for this id ${id}`, 404));
+    return next(new ApiError(`no brand for this id ${id}`, 404));
   }
-  res.status(200).json({ data: updatecategory });
+  res.status(200).json({ data: updatebrand });
 });
 
 // delete
-exports.deleteCategory = asyncHandler(async (req, res, next) => {
+exports.deletebrand = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  const deleteCategory = await category.findOneAndDelete({ _id: id });
-  if (!deleteCategory) {
+  const deletebrand = await brand.findOneAndDelete({ _id: id });
+  if (!deletebrand) {
     // res.status(404).json({msg:`no category for this id ${id} `});
-    return next(new ApiError(`no category for this id ${id}`, 404));
+    return next(new ApiError(`no brand for this id ${id}`, 404));
   }
   res.status(204).send();
 });
